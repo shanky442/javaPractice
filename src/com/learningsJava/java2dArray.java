@@ -25,13 +25,7 @@ public class java2dArray {
             }
         }
         return max;
-
     }
-
-
-
-
-
 
     private static final Scanner scanner = new Scanner(System.in);
 
