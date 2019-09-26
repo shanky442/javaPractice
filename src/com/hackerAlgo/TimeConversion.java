@@ -1,9 +1,10 @@
 package com.hackerAlgo;
-import java.io.*;
-import java.math.*;
-import java.text.*;
-import java.util.*;
-import java.util.regex.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class TimeConversion {
     //https://www.hackerrank.com/challenges/time-conversion/problem
