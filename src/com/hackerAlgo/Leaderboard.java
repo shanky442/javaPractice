@@ -20,20 +20,55 @@ public class Leaderboard {
         }
         TreeSet<Integer> scoreSetDesc = (TreeSet<Integer>)scoreSet.descendingSet();
         List<Integer> scoreList = new ArrayList<>(scoreSetDesc);
-        int[] res = new int[alice.length];
-        res[0] = scoreSet.size()+1;
-        for(int j=1;j<alice.length;j++) {
-            for(int k=0;k<scoreList.size();k++) {
-                if(scoreList.get(k)<=alice[j]) {
-                    res[j]=k+1;
-                    break;
-                }
-                if(k==scoreList.size()-1) {
-                    res[j]=scoreList.size()+1;
-                }
-            }
+        List<Integer> resultList = new ArrayList<>();
+        //res[0] = scoreSet.size()+1;
+        int[] scoresArray = getArray(scoreList);
+        for(int aliceScore:alice) {
+            int position = binarySearch(scoresArray,0,scoresArray.length-1,aliceScore);
+            //System.out.println(position);
+            resultList.add(position+1);
         }
-        return res;
+        int[] res = new int[alice.length];
+        return getArray(resultList);
+    }
+
+    private static int[] getArray(List<Integer> scoreList) {
+        int[] scoresArray = new int[scoreList.size()];
+        int k=0;
+        for(int j:scoreList) {
+            scoresArray[k]=j;
+            k++;
+        }
+        return scoresArray;
+    }
+
+    static int binarySearch(int scoreList[], int low, int high, int aliceScore)
+    {
+        if (high < low)
+            return scoreList.length;
+
+        /*low + (high - low)/2;*/
+        int mid = (low + high) / 2;
+        if(mid==scoreList.length-1 && mid==high) {
+            if(aliceScore<scoreList[mid]) {
+                return high+1;
+            } else {
+                return high;
+            }
+
+        }
+        if(aliceScore==scoreList[mid]) {
+            return mid;
+        }
+        if(mid==0 && aliceScore>scoreList[0]) {
+            return 0;
+        }
+        if (aliceScore > scoreList[mid] && aliceScore < scoreList[mid-1])
+            return mid;
+        if (aliceScore < scoreList[mid])
+            return binarySearch(scoreList, (mid + 1), high, aliceScore);
+
+        return binarySearch(scoreList, low, (mid - 1), aliceScore);
     }
 
     private static final Scanner scanner = new Scanner(System.in);
