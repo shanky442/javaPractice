@@ -21,7 +21,6 @@ public class Leaderboard {
         TreeSet<Integer> scoreSetDesc = (TreeSet<Integer>)scoreSet.descendingSet();
         List<Integer> scoreList = new ArrayList<>(scoreSetDesc);
         List<Integer> resultList = new ArrayList<>();
-        //res[0] = scoreSet.size()+1;
         int[] scoresArray = getArray(scoreList);
         for(int aliceScore:alice) {
             int position = binarySearch(scoresArray,0,scoresArray.length-1,aliceScore);
