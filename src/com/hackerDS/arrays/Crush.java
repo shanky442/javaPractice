@@ -1,4 +1,4 @@
-package com.hackerDS;
+package com.hackerDS.arrays;
 
 
 import java.io.*;
@@ -25,7 +25,7 @@ public class Crush {
                 diff[finalIndex + 1] = diff[finalIndex + 1] - value;
             }
         }
-        Arrays.stream(diff).forEach(i->System.out.print(i+" "));
+        //Arrays.stream(diff).forEach(i->System.out.print(i+" "));
         long y=0;
         for(int i=0;i<n;i++) {
             y=y+diff[i];

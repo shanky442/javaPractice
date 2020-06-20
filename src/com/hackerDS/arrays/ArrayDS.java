@@ -1,4 +1,4 @@
-package com.hackerDS;
+package com.hackerDS.arrays;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
