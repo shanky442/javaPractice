@@ -1,10 +1,13 @@
 package com.hackerDS.linkedList;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Scanner;
 
-public class PrintElements {
-    //https://www.hackerrank.com/challenges/print-the-elements-of-a-linked-list/problem
-
+public class DeleteANode {
+    //https://www.hackerrank.com/challenges/delete-a-node-from-a-linked-list
     static class SinglyLinkedListNode {
         public int data;
         public SinglyLinkedListNode next;
@@ -37,7 +40,19 @@ public class PrintElements {
         }
     }
 
-    // Complete the printLinkedList function below.
+    public static void printSinglyLinkedList(SinglyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
+        while (node != null) {
+            bufferedWriter.write(String.valueOf(node.data));
+
+            node = node.next;
+
+            if (node != null) {
+                bufferedWriter.write(sep);
+            }
+        }
+    }
+
+    // Complete the deleteNode function below.
 
     /*
      * For your reference:
@@ -48,20 +63,26 @@ public class PrintElements {
      * }
      *
      */
-    static void printLinkedList(SinglyLinkedListNode head) {
-        while (head != null) {
-            System.out.println(head.data);
-            if(head.next!=null) {
-                head = head.next;
+    static SinglyLinkedListNode deleteNode(SinglyLinkedListNode head, int position) {
+        if(head!=null) {
+            SinglyLinkedListNode curr = head;
+            if(position==0) {
+                head = curr.next;
             } else {
-                break;
+                for(int i=0;i<position-1;i++) {
+                    curr = curr.next;
+                }
+                curr.next = curr.next.next;
             }
         }
+        return head;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+
         SinglyLinkedList llist = new SinglyLinkedList();
 
         int llistCount = scanner.nextInt();
@@ -74,8 +95,17 @@ public class PrintElements {
             llist.insertNode(llistItem);
         }
 
-        printLinkedList(llist.head);
+        int position = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        SinglyLinkedListNode llist1 = deleteNode(llist.head, position);
+
+        printSinglyLinkedList(llist1, " ", bufferedWriter);
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
 
         scanner.close();
     }
 }
+
