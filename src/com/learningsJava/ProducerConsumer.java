@@ -31,14 +31,14 @@ public class ProducerConsumer {
         public void produce() throws InterruptedException {
             int value=10;
             while(true) {
-                synchronized(this) {
+                synchronized(list) {
                     if(list.size()<initialCapacity) {
                         value++;
                         list.add(value);
                         Thread.sleep(1000);
                         System.out.println("producer produced "+value);
                     } else {
-                        this.notify();
+                        list.notify();
                         //this.wait();
                     }
                 }
@@ -53,13 +53,13 @@ public class ProducerConsumer {
                 System.out.println("elements in list are "+i);
             }*/
             while(true) {
-                synchronized (this) {
+                synchronized (list) {
                     if (!list.isEmpty()) {
                         System.out.println("consumer consumed " + list.remove(0));
                         Thread.sleep(1000); //so that we can see the output
                     } else {
                         //this.notify();
-                        this.wait();
+                        list.wait();
                     }
                 }
             }
